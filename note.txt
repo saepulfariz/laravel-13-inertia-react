@@ -2,3 +2,15 @@ composer require inertiajs/inertia-laravel:2.0.11
 
 
 php artisan inertia:middleware
+
+npm install
+npm install @inertiajs/react
+
+npm install @inertiajs/react@2.2.19
+
+
+npm install react@19.2.1 react-dom@19.2.1
+npm install react react-dom
+
+npm install @vitejs/plugin-react@5.1.1
+npm install @vitejs/plugin-react
