@@ -14,3 +14,6 @@ npm install react react-dom
 
 npm install @vitejs/plugin-react@5.1.1
 npm install @vitejs/plugin-react
+
+
+php artisan make:model Post -m
