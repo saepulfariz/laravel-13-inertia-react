@@ -91,4 +91,16 @@ class PostControllerTest extends TestCase
 
         $this->assertDatabaseHas('posts', $updatedData);
     }
+
+    public function test_validation_fails_on_update_when_fields_are_empty()
+    {
+        $post = Post::factory()->create();
+
+        $response = $this->put("/posts/{$post->id}", [
+            'title' => '',
+            'content' => '',
+        ]);
+
+        $response->assertSessionHasErrors(['title', 'content']);
+    }
 }
