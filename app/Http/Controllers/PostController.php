@@ -97,4 +97,21 @@ class PostController extends Controller
         //redirect
         return redirect()->route('posts.index')->with('message', 'Data Berhasil Diupdate!');
     }
+
+
+
+    /**
+     * destroy
+     *
+     * @param  mixed $post
+     * @return void
+     */
+    public function destroy(Post $post)
+    {
+        //delete post
+        $post->delete();
+
+        //redirect
+        return redirect()->route('posts.index')->with('message', 'Data Berhasil Dihapus!');
+    }
 }
