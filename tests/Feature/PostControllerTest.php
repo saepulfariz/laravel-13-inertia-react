@@ -59,4 +59,36 @@ class PostControllerTest extends TestCase
 
         $response->assertSessionHasErrors(['title', 'content']);
     }
+
+    public function test_can_view_post_edit_page()
+    {
+        $post = Post::factory()->create();
+
+        $response = $this->get("/posts/{$post->id}/edit");
+
+        $response->assertStatus(200)
+            ->assertInertia(
+                fn(Assert $page) => $page
+                    ->component('Posts/Edit')
+                    ->has('post')
+                    ->where('post.id', $post->id)
+            );
+    }
+
+    public function test_can_update_post()
+    {
+        $post = Post::factory()->create();
+
+        $updatedData = [
+            'title' => 'Updated Title',
+            'content' => 'Updated Content',
+        ];
+
+        $response = $this->put("/posts/{$post->id}", $updatedData);
+
+        $response->assertRedirect(route('posts.index'))
+            ->assertSessionHas('message', 'Data Berhasil Diupdate!');
+
+        $this->assertDatabaseHas('posts', $updatedData);
+    }
 }
