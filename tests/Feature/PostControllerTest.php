@@ -25,4 +25,31 @@ class PostControllerTest extends TestCase
                     ->has('posts', 3)
             );
     }
+
+
+    public function test_can_view_post_create_page()
+    {
+        $response = $this->get('/posts/create');
+
+        $response->assertStatus(200)
+            ->assertInertia(
+                fn(Assert $page) => $page
+                    ->component('Posts/Create')
+            );
+    }
+
+    public function test_can_store_new_post()
+    {
+        $postData = [
+            'title' => 'Test Title',
+            'content' => 'Test Content',
+        ];
+
+        $response = $this->post('/posts', $postData);
+
+        $response->assertRedirect(route('posts.index'))
+            ->assertSessionHas('message', 'Data Berhasil Disimpan!');
+
+        $this->assertDatabaseHas('posts', $postData);
+    }
 }
