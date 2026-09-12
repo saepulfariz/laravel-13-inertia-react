@@ -52,4 +52,11 @@ class PostControllerTest extends TestCase
 
         $this->assertDatabaseHas('posts', $postData);
     }
+
+    public function test_validation_fails_on_store_when_fields_are_empty()
+    {
+        $response = $this->post('/posts', []);
+
+        $response->assertSessionHasErrors(['title', 'content']);
+    }
 }
