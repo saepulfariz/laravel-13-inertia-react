@@ -103,4 +103,16 @@ class PostControllerTest extends TestCase
 
         $response->assertSessionHasErrors(['title', 'content']);
     }
+
+    public function test_can_delete_post()
+    {
+        $post = Post::factory()->create();
+
+        $response = $this->delete("/posts/{$post->id}");
+
+        $response->assertRedirect(route('posts.index'))
+            ->assertSessionHas('message', 'Data Berhasil Dihapus!');
+
+        $this->assertDatabaseMissing('posts', ['id' => $post->id]);
+    }
 }
