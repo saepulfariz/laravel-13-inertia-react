@@ -17,3 +17,9 @@ npm install @vitejs/plugin-react
 
 
 php artisan make:model Post -m
+
+php artisan make:controller PostController
+
+
+
+php artisan make:migration add_image_to_posts_table --table=posts
